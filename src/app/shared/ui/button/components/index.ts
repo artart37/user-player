@@ -1,1 +1,1 @@
-export * from './um-button.component';
+export * from './button.component';

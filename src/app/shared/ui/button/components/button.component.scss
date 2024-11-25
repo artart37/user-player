@@ -17,10 +17,7 @@
   }
 
   &.solid {
-    @include utils.button-base-theming(
-      var(--color-primary-700),
-      var(--color-white)
-    );
+    @include utils.button-base-theming(var(--color-white), var(--color-black));
     @include utils.button-base-hover-effect;
   }
 

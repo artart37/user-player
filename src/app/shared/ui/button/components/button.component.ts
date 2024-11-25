@@ -6,8 +6,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'um-button',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './um-button.component.html',
-  styleUrl: './um-button.component.scss',
+  templateUrl: './button.component.html',
+  styleUrl: './button.component.scss',
 })
 export class UmButtonComponent {
   @Input() accent = false;
