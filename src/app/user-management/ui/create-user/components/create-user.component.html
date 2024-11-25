@@ -1,0 +1,33 @@
+<div class="create-user" [formGroup]="createUserForm">
+  <div class="create-user__field">
+    <label for="name" class="create-user__label">Name</label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      class="create-user__input"
+    />
+    <div
+      *ngIf="name && name.invalid && name.touched"
+      class="create-user__error"
+    >
+      <span *ngIf="name.hasError('required')">Name is required.</span>
+      <span *ngIf="name.hasError('unique')">Name is not unique.</span>
+    </div>
+  </div>
+  <div class="create-user__field">
+    <label for="active" class="create-user__label">Active</label>
+    <select id="active" formControlName="active" class="create-user__input">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
+    <div
+      *ngIf="active && active.invalid && active.touched"
+      class="create-user__error"
+    >
+      <span *ngIf="active.hasError('required')"
+        >Active status is required.</span
+      >
+    </div>
+  </div>
+</div>
