@@ -1,6 +1,6 @@
 <div class="user-management page">
   <header>
-    <h1>User Management</h1>
+    <h1>User Management Header</h1>
   </header>
   <main>
     <section class="user-management__section">
@@ -10,6 +10,25 @@
     </section>
   </main>
   <footer>
-    <p>Footer</p>
+    <p>User Management Footer</p>
   </footer>
 </div>
+
+<um-modal
+  cancelLabel="Cancel"
+  submitLabel="Create button"
+  [content]="modalContent"
+  (cancelEvent)="handleCancel()"
+  (confirmEvent)="handleConfirm()"
+>
+  <ng-container modal-header>
+    <h2>Create User</h2>
+  </ng-container>
+  <ng-container modal-footer>
+    <p>User Management</p>
+  </ng-container>
+</um-modal>
+
+<ng-template #modalContent>
+  <h1>Content</h1>
+</ng-template>

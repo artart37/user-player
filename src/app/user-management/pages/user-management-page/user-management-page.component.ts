@@ -13,4 +13,12 @@ import { USER_TABLE_HEADERS } from '../../ui';
 export class UserManagementPageComponent {
   data: TableRow<UmUser>[] = INITIAL_USER_ENTITIES;
   headers: TableHeader<UmUser>[] = USER_TABLE_HEADERS;
+
+  handleConfirm() {
+    throw new Error('Method not implemented.');
+  }
+
+  handleCancel() {
+    throw new Error('Method not implemented.');
+  }
 }
