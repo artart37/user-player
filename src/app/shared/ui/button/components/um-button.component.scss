@@ -1,5 +1,9 @@
 @use "utils" as utils;
 
+:host {
+  display: inline-block;
+}
+
 .um-button {
   @include utils.button-base;
   @include utils.button-base-theming;
