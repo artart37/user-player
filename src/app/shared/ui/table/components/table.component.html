@@ -1,0 +1,16 @@
+<table class="table-base">
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers" class="table-base__header">
+        {{ header.label }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let header of headers" class="table-base__cell">
+        {{ row[header.key] }}
+      </td>
+    </tr>
+  </tbody>
+</table>
