@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { UserManagementPageComponent } from './user-management-page.component';
+import { RouterModule } from '@angular/router';
+
 import {
   UmButtonComponent,
   UmModalComponent,
   UmTableComponent,
 } from '../../../shared/ui';
-import { RouterModule } from '@angular/router';
+import { UmCreateUserComponent } from '../../ui';
+import { UserManagementPageComponent } from './user-management-page.component';
 
 @NgModule({
   declarations: [UserManagementPageComponent],
@@ -14,6 +16,7 @@ import { RouterModule } from '@angular/router';
     UmButtonComponent,
     UmTableComponent,
     UmModalComponent,
+    UmCreateUserComponent,
     RouterModule.forChild([
       {
         path: '',
