@@ -1,0 +1,10 @@
+.user-management {
+  &__section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    um-button {
+      align-self: flex-end;
+    }
+  }
+}
