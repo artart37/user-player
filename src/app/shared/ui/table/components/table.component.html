@@ -2,14 +2,14 @@
   <thead>
     <tr>
       <th *ngFor="let header of headers" class="table-base__header">
-        {{ header.label }}
+        <span>{{ header.label }}</span>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let row of data">
       <td *ngFor="let header of headers" class="table-base__cell">
-        {{ row[header.key] }}
+        <span>{{ row[header.key] | booleanToYesNo }}</span>
       </td>
     </tr>
   </tbody>
