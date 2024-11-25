@@ -1,8 +1,9 @@
-<div class="page">
+<div class="user-management page">
   <header>
     <h1>User Management</h1>
   </header>
   <main>
+    <um-table [headers]="headers" [data]="data"></um-table>
     <um-button [accent]="true" type="button">Add User</um-button>
   </main>
   <footer>

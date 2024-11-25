@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { UserManagementPageComponent } from './user-management-page.component';
-import { UmButtonComponent } from '../../../shared/ui';
+import { UmButtonComponent, UmTableComponent } from '../../../shared/ui';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
   exports: [UserManagementPageComponent],
   imports: [
     UmButtonComponent,
+    UmTableComponent,
     RouterModule.forChild([
       {
         path: '',
