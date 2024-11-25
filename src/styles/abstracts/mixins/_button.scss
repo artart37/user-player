@@ -1,8 +1,4 @@
-@mixin button-base(
-  $bg-color: transparent,
-  $text-color: inherit,
-  $border-color: none
-) {
+@mixin button-base {
   display: block;
   margin: 0;
   padding: 0 1rem;
@@ -18,10 +14,17 @@
   box-sizing: border-box;
   z-index: 1;
   cursor: pointer;
-  border: $border-color;
+  @content;
+}
+
+@mixin button-base-theming(
+  $bg-color: transparent,
+  $text-color: inherit,
+  $border-color: currentColor
+) {
   background-color: $bg-color;
   color: $text-color;
-  @content;
+  border: 0.0625rem solid $border-color;
 }
 
 @mixin button-base-hover-effect {

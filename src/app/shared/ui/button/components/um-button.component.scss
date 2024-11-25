@@ -2,33 +2,34 @@
 
 .um-button {
   @include utils.button-base;
-}
+  @include utils.button-base-theming;
 
-.um-button.solid {
-  @include utils.button-base(var(--color-primary-500), var(--color-white)) {
+  &.accent {
+    @include utils.button-base-theming(
+      var(--color-secondary-700),
+      var(--color-white)
+    );
     @include utils.button-base-hover-effect;
   }
-}
 
-.um-button.accent {
-  @include utils.button-base(var(--color-secondary-500), var(--color-white)) {
+  &.solid {
+    @include utils.button-base-theming(
+      var(--color-primary-700),
+      var(--color-white)
+    );
     @include utils.button-base-hover-effect;
   }
-}
 
-.um-button[disabled] {
-  cursor: default;
-  opacity: 0.5;
-}
+  &[disabled] {
+    cursor: default;
+    opacity: 0.5;
+  }
 
-@media only screen and (max-width: 480px) {
-  .um-button {
+  @media only screen and (max-width: 480px) {
     font-size: 1.378rem;
   }
-}
 
-@media only screen and (min-width: 481px) and (max-width: 600px) {
-  .um-button {
+  @media only screen and (min-width: 481px) and (max-width: 600px) {
     font-size: 1.575rem;
   }
 }
