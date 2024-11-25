@@ -16,9 +16,10 @@ import { UmButtonComponent } from '../../button';
   styleUrl: './modal.component.scss',
 })
 export class UmModalComponent {
-  @Input() cancelLabel: string = 'Cancel';
-  @Input() submitLabel: string = 'Submit';
+  @Input() cancelLabel = 'Cancel';
+  @Input() confirmLabel = 'Submit';
   @Input() content!: TemplateRef<unknown>;
+  @Input() isConfirmDisabled = false;
 
   @Output() cancelEvent = new EventEmitter<void>();
   @Output() confirmEvent = new EventEmitter<void>();

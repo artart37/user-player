@@ -10,8 +10,13 @@
       <um-button [solid]="true" type="button" (click)="cancel()">
         <span>{{ cancelLabel }}</span>
       </um-button>
-      <um-button [accent]="true" type="button" (click)="confirm()">
-        <span>{{ submitLabel }}</span>
+      <um-button
+        [accent]="true"
+        type="button"
+        (click)="confirm()"
+        [disabled]="isConfirmDisabled"
+      >
+        <span>{{ confirmLabel }}</span>
       </um-button>
     </section>
   </div>
