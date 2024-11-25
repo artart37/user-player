@@ -1,0 +1,32 @@
+@use "utils" as utils;
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal {
+  @include utils.base-modal;
+
+  &__header {
+    &--close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    &--actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+  }
+}

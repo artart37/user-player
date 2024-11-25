@@ -1,0 +1,21 @@
+<div class="modal-backdrop" (click)="close()"></div>
+<div class="modal">
+  <div class="modal__header">
+    <ng-content select="[modal-header]"></ng-content>
+    <span (click)="close()" class="modal__header--close">&#x2716;</span>
+  </div>
+  <div class="modal__content">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+    <section class="modal__content--actions">
+      <um-button [solid]="true" type="button" (click)="cancel()">
+        <span>{{ cancelLabel }}</span>
+      </um-button>
+      <um-button [accent]="true" type="button" (click)="confirm()">
+        <span>{{ submitLabel }}</span>
+      </um-button>
+    </section>
+  </div>
+  <div class="modal__footer">
+    <ng-content select="[modal-footer]"></ng-content>
+  </div>
+</div>
