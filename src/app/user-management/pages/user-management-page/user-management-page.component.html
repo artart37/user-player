@@ -6,7 +6,9 @@
     <section class="user-management__section">
       <h2>User Management</h2>
       <um-table [headers]="headers" [data]="data"></um-table>
-      <um-button [accent]="true" type="button">Add User</um-button>
+      <um-button [accent]="true" type="button" (click)="addUser()"
+        >Add User</um-button
+      >
     </section>
   </main>
   <footer>
