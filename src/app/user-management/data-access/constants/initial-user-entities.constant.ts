@@ -1,24 +1,25 @@
+import { guid } from '@datorama/akita';
 import { UmUser } from '../../models';
 
 export const INITIAL_USER_ENTITIES: UmUser[] = [
   {
-    id: '1',
+    id: guid(),
     name: 'John Doe',
     active: true,
   },
   {
-    id: '2',
-    name: 'Jane Doe',
+    id: guid(),
+    name: 'Jane Brown',
     active: true,
   },
   {
-    id: '3',
+    id: guid(),
     name: 'John Smith',
     active: true,
   },
   {
-    id: '4',
-    name: 'Jane Smith',
+    id: guid(),
+    name: 'Jane Anderson',
     active: true,
   },
 ];

@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,7 +13,20 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {
+  debounceTime,
+  distinctUntilKeyChanged,
+  filter,
+  Subject,
+  takeUntil,
+} from 'rxjs';
+
+import {
+  UserManagementQuery,
+  UserManagementService,
+} from '../../../data-access';
 import { CreateUserFormModel } from '../models';
+import { userNameValidator } from '../validators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,11 +36,18 @@ import { CreateUserFormModel } from '../models';
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.scss',
 })
-export class UmCreateUserComponent {
+export class UmCreateUserComponent implements OnDestroy, OnInit {
+  private unsubscribeSubject = new Subject<void>();
+  private userManagementService = inject(UserManagementService);
+  private userManagementQuery = inject(UserManagementQuery);
+
   createUserForm = new FormGroup<CreateUserFormModel>({
     name: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        userNameValidator(this.userManagementQuery),
+      ],
     }),
     active: new FormControl(false, {
       nonNullable: true,
@@ -35,5 +61,23 @@ export class UmCreateUserComponent {
 
   get active() {
     return this.createUserForm.get('active');
+  }
+
+  ngOnInit(): void {
+    this.createUserForm.valueChanges
+      .pipe(
+        takeUntil(this.unsubscribeSubject),
+        debounceTime(300),
+        distinctUntilKeyChanged('name'),
+        filter((user) => !!user.name)
+      )
+      .subscribe(({ name }) =>
+        this.userManagementService.validateUserNames(name as string)
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeSubject.next();
+    this.unsubscribeSubject.complete();
   }
 }
