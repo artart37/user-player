@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TableHeader, TableRow, UmModalService } from '../../../shared/ui';
+import { TableHeader, UmModalService } from '../../../shared/ui';
 import { UmUser } from '../../models';
-import { INITIAL_USER_ENTITIES } from '../../data-access';
+import { UserManagementQuery } from '../../data-access';
 import { USER_TABLE_HEADERS } from '../../ui';
 
 @Component({
@@ -12,8 +12,9 @@ import { USER_TABLE_HEADERS } from '../../ui';
 })
 export class UserManagementPageComponent {
   private modalService = inject(UmModalService);
+  private userQueryService = inject(UserManagementQuery);
 
-  data: TableRow<UmUser>[] = INITIAL_USER_ENTITIES;
+  usersData$ = this.userQueryService.selectUsers$;
   headers: TableHeader<UmUser>[] = USER_TABLE_HEADERS;
 
   addUser(): void {

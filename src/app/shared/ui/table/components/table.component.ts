@@ -12,6 +12,6 @@ import { UmUserStatusPipe } from '../../utils';
   styleUrl: './table.component.scss',
 })
 export class UmTableComponent<T> {
-  @Input() data: TableRow<T>[] = [];
-  @Input() headers: TableHeader<T>[] = [];
+  @Input() data: TableRow<T>[] | null = [];
+  @Input() headers: TableHeader<T>[] | null = [];
 }

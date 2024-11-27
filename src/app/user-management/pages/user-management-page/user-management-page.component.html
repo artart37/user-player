@@ -1,20 +1,22 @@
-<div class="user-management page">
-  <header>
-    <h1>User Management Header</h1>
-  </header>
-  <main>
-    <section class="user-management__section">
-      <h2>User Management</h2>
-      <um-table [headers]="headers" [data]="data"></um-table>
-      <um-button [accent]="true" type="button" (click)="addUser()"
-        >Add User</um-button
-      >
-    </section>
-  </main>
-  <footer>
-    <p>User Management Footer</p>
-  </footer>
-</div>
+<ng-container *ngIf="{ usersData: usersData$ | async } as data">
+  <div class="user-management page">
+    <header>
+      <h1>User Management Header</h1>
+    </header>
+    <main>
+      <section class="user-management__section">
+        <h2>User Management</h2>
+        <um-table [headers]="headers" [data]="data.usersData"></um-table>
+        <um-button [accent]="true" type="button" (click)="addUser()"
+          >Add User</um-button
+        >
+      </section>
+    </main>
+    <footer>
+      <p>User Management Footer</p>
+    </footer>
+  </div>
+</ng-container>
 
 <um-modal
   cancelLabel="Cancel"
