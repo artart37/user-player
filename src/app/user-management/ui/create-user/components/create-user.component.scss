@@ -1,6 +1,12 @@
 .create-user {
-  &__field {
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  &__actions {
+    display: flex;
+    column-gap: 1rem;
+    align-self: flex-end;
   }
 
   &__label {

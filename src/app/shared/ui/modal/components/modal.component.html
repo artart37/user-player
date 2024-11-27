@@ -7,7 +7,7 @@
     </div>
     <div class="modal__content">
       <ng-container *ngTemplateOutlet="content"></ng-container>
-      <section class="modal__content--actions">
+      <section class="modal__content--actions" *ngIf="displayActions">
         <um-button [solid]="true" type="button" (click)="cancel()">
           <span>{{ cancelLabel }}</span>
         </um-button>

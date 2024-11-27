@@ -12,20 +12,12 @@ import { USER_TABLE_HEADERS } from '../../ui';
 })
 export class UserManagementPageComponent {
   private modalService = inject(UmModalService);
-  private userQueryService = inject(UserManagementQuery);
+  private userQuery = inject(UserManagementQuery);
 
-  usersData$ = this.userQueryService.selectUsers$;
+  usersData$ = this.userQuery.selectUsers$;
   headers: TableHeader<UmUser>[] = USER_TABLE_HEADERS;
 
   addUser(): void {
     this.modalService.open();
-  }
-
-  handleConfirm() {
-    throw new Error('Method not implemented.');
-  }
-
-  handleCancel() {
-    this.modalService.close();
   }
 }

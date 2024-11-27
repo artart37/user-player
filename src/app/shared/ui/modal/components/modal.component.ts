@@ -23,6 +23,7 @@ export class UmModalComponent {
   @Input() cancelLabel = 'Cancel';
   @Input() confirmLabel = 'Submit';
   @Input() content!: TemplateRef<unknown>;
+  @Input() displayActions = false;
   @Input() isConfirmDisabled = false;
 
   @Output() cancelEvent = new EventEmitter<void>();

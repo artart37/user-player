@@ -27,20 +27,22 @@ import {
 } from '../../../data-access';
 import { CreateUserFormModel } from '../models';
 import { userNameValidator } from '../validators';
+import { UmButtonComponent, UmModalService } from '../../../../shared/ui';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'um-create-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, UmButtonComponent],
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.scss',
 })
 export class UmCreateUserComponent implements OnDestroy, OnInit {
+  private modalService = inject(UmModalService);
   private unsubscribeSubject = new Subject<void>();
   private userManagementService = inject(UserManagementService);
   private userManagementQuery = inject(UserManagementQuery);
-  private isUserUnique$ = this.userManagementQuery.selectIsUserUnique$;
+  isUserUnique$ = this.userManagementQuery.selectIsUserUnique$;
 
   createUserForm = new FormGroup<CreateUserFormModel>({
     name: new FormControl('', {
@@ -72,6 +74,15 @@ export class UmCreateUserComponent implements OnDestroy, OnInit {
       .subscribe(({ name }) =>
         this.userManagementService.validateUserNames(name as string)
       );
+  }
+
+  cancel() {
+    this.modalService.close();
+  }
+
+  confirm() {
+    const user = this.createUserForm.getRawValue();
+    this.userManagementService.addUser(user);
   }
 
   ngOnDestroy(): void {
