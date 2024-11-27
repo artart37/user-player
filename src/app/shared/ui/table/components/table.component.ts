@@ -14,4 +14,12 @@ import { UmUserStatusPipe } from '../../utils';
 export class UmTableComponent<T> {
   @Input() data: TableRow<T>[] | null = [];
   @Input() headers: TableHeader<T>[] | null = [];
+
+  trackById(index: number, item: any): number | string {
+    if (item.hasOwnProperty('id')) {
+      return item.id;
+    } else {
+      return index;
+    }
+  }
 }
