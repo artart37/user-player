@@ -32,7 +32,7 @@ export class UmModalComponent {
   isModalOpen$ = this.modalService.isModalOpen$;
 
   close(): void {
-    this.cancelEvent.emit();
+    this.modalService.close();
   }
 
   cancel(): void {
