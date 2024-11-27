@@ -19,8 +19,8 @@
     <div class="create-user__field">
       <label for="active" class="create-user__label">Active</label>
       <select id="active" formControlName="active" class="create-user__input">
-        <option [value]="true">Yes</option>
-        <option [value]="false">No</option>
+        <option [ngValue]="true">Yes</option>
+        <option [ngValue]="false">No</option>
       </select>
       <div
         *ngIf="active && active.invalid && active.touched"

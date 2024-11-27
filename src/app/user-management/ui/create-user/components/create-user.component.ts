@@ -55,7 +55,6 @@ export class UmCreateUserComponent {
 
   confirm() {
     const user = this.createUserForm.getRawValue();
-    console.log(user);
     this.userManagementService.addUser(user);
     this.modalService.close();
   }
