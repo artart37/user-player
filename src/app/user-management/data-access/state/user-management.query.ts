@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { UmUser } from '../../models';
 import {
@@ -18,11 +18,10 @@ export class UserManagementQuery extends QueryEntity<UserManagementState> {
 
   constructor(protected override store: UserManagementStore) {
     super(store);
-    this.selectCanUsersBeAdded$ = this.select(
-      (state) =>
-        state.users?.length < 5 && state.users.every(({ active }) => !!active)
+    this.selectUsers$ = this.selectAll();
+    this.selectCanUsersBeAdded$ = this.selectUsers$.pipe(
+      map((users) => users?.length < 5 && users.every(({ active }) => !!active))
     );
-    this.selectUsers$ = this.select((state) => state.users);
     this.selectIsUserUnique$ = this.select((state) => state.isUserUnique);
   }
 }
