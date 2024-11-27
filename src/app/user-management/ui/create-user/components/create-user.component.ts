@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,21 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  debounceTime,
-  distinctUntilKeyChanged,
-  filter,
-  Subject,
-  takeUntil,
-} from 'rxjs';
 
-import {
-  UserManagementQuery,
-  UserManagementService,
-} from '../../../data-access';
+import { UmButtonComponent, UmModalService } from '../../../../shared/ui';
+import { UserManagementService } from '../../../data-access';
 import { CreateUserFormModel } from '../models';
 import { userNameValidator } from '../validators';
-import { UmButtonComponent, UmModalService } from '../../../../shared/ui';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,18 +21,15 @@ import { UmButtonComponent, UmModalService } from '../../../../shared/ui';
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.scss',
 })
-export class UmCreateUserComponent implements OnDestroy, OnInit {
+export class UmCreateUserComponent {
   private modalService = inject(UmModalService);
-  private unsubscribeSubject = new Subject<void>();
   private userManagementService = inject(UserManagementService);
-  private userManagementQuery = inject(UserManagementQuery);
-  isUserUnique$ = this.userManagementQuery.selectIsUserUnique$;
 
   createUserForm = new FormGroup<CreateUserFormModel>({
     name: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
-      asyncValidators: userNameValidator(this.isUserUnique$),
+      asyncValidators: userNameValidator(this.userManagementService),
     }),
     active: new FormControl(false, {
       nonNullable: true,
@@ -68,19 +49,6 @@ export class UmCreateUserComponent implements OnDestroy, OnInit {
     return this.createUserForm.valid;
   }
 
-  ngOnInit(): void {
-    this.createUserForm.valueChanges
-      .pipe(
-        takeUntil(this.unsubscribeSubject),
-        debounceTime(300),
-        distinctUntilKeyChanged('name'),
-        filter((user) => !!user.name)
-      )
-      .subscribe(({ name }) =>
-        this.userManagementService.validateUserNames(name as string)
-      );
-  }
-
   cancel() {
     this.modalService.close();
   }
@@ -88,10 +56,5 @@ export class UmCreateUserComponent implements OnDestroy, OnInit {
   confirm() {
     const user = this.createUserForm.getRawValue();
     this.userManagementService.addUser(user);
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeSubject.next();
-    this.unsubscribeSubject.complete();
   }
 }

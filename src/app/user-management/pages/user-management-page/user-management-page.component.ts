@@ -13,6 +13,7 @@ import { USER_TABLE_HEADERS } from '../../ui';
 export class UserManagementPageComponent {
   private modalService = inject(UmModalService);
   private userQuery = inject(UserManagementQuery);
+  canUsersBeAdded$ = this.userQuery.selectCanUsersBeAdded$;
 
   usersData$ = this.userQuery.selectUsers$;
   headers: TableHeader<UmUser>[] = USER_TABLE_HEADERS;

@@ -1,4 +1,9 @@
-<ng-container *ngIf="{ usersData: usersData$ | async } as data">
+<ng-container
+  *ngIf="{
+    isAddDisabled: !(canUsersBeAdded$ | async),
+    usersData: usersData$ | async
+  } as data"
+>
   <div class="user-management page">
     <header>
       <h1>User Management Header</h1>
@@ -7,7 +12,12 @@
       <section class="user-management__section">
         <h2>User Management</h2>
         <um-table [headers]="headers" [data]="data.usersData"></um-table>
-        <um-button [accent]="true" type="button" (click)="addUser()">
+        <um-button
+          [accent]="true"
+          [disabled]="data.isAddDisabled"
+          type="button"
+          (click)="addUser()"
+        >
           <span>Add User</span>
         </um-button>
       </section>

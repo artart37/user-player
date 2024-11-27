@@ -1,16 +1,39 @@
-import { AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { catchError, map, Observable, of, take } from 'rxjs';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  ValidationErrors,
+} from '@angular/forms';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
+
+import { UserManagementService } from './../../../data-access/state/user-management.service';
 
 export const userNameValidator = (
-  isUserUnique$: Observable<boolean>
+  userManagementService: UserManagementService
 ): AsyncValidatorFn => {
-  return (): Observable<ValidationErrors | null> => {
-    return isUserUnique$.pipe(
-      take(1),
-      map((isUnique) => {
-        return isUnique ? null : { unique: true };
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    if (!control.value) {
+      return of(null);
+    }
+
+    return control.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((value) => userManagementService.checkUserNameValidity(value)),
+      map((isUserUnique) => !isUserUnique),
+      map((hasDuplicateNames) => {
+        return hasDuplicateNames ? { unique: true } : null;
       }),
-      catchError(() => of({ unique: true }))
+      take(1),
+      catchError(() => of(null))
     );
   };
 };

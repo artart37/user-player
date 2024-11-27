@@ -3,6 +3,7 @@ import { UserManagementStore } from './user-management.store';
 import { UmUser } from '../../models';
 import { guid } from '@datorama/akita';
 import { UserManagementQuery } from './user-management.query';
+import { delay, map, Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserManagementService {
@@ -15,11 +16,15 @@ export class UserManagementService {
     this.userManagementStore.setLoading(false);
   }
 
-  validateUserNames(name: string): void {
-    const isUserUnique = this.userManagementQuery
-      .getAll()
-      .every((user) => user.name === name);
-
-    this.userManagementStore.update({ isUserUnique });
+  checkUserNameValidity(name: string): Observable<boolean> {
+    return this.userManagementQuery.selectUsers$.pipe(
+      delay(1000),
+      tap(() => this.userManagementStore.setLoading(true)),
+      map((users) => users.every((user) => user.name !== name)),
+      tap((isUserUnique) => {
+        this.userManagementStore.update({ isUserUnique });
+        this.userManagementStore.setLoading(false);
+      })
+    );
   }
 }
