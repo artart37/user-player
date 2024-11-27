@@ -1,4 +1,4 @@
-<ng-container *ngIf="{ disabled: !(isUserUnique$ | async) } as data">
+<ng-container>
   <div class="create-user" [formGroup]="createUserForm">
     <div class="create-user__field">
       <label for="name" class="create-user__label">Name</label>
@@ -39,7 +39,7 @@
         [accent]="true"
         type="button"
         (click)="confirm()"
-        [disabled]="data.disabled"
+        [disabled]="!isFormValid"
       >
         <span>Create user</span>
       </um-button>

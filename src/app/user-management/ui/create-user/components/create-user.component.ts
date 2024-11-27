@@ -47,7 +47,8 @@ export class UmCreateUserComponent implements OnDestroy, OnInit {
   createUserForm = new FormGroup<CreateUserFormModel>({
     name: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, userNameValidator(this.isUserUnique$)],
+      validators: [Validators.required],
+      asyncValidators: userNameValidator(this.isUserUnique$),
     }),
     active: new FormControl(false, {
       nonNullable: true,
@@ -61,6 +62,10 @@ export class UmCreateUserComponent implements OnDestroy, OnInit {
 
   get active() {
     return this.createUserForm.get('active');
+  }
+
+  get isFormValid() {
+    return this.createUserForm.valid;
   }
 
   ngOnInit(): void {

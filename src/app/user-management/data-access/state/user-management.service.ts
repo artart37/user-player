@@ -18,7 +18,7 @@ export class UserManagementService {
   validateUserNames(name: string): void {
     const isUserUnique = this.userManagementQuery
       .getAll()
-      .every((user) => user.name !== name);
+      .every((user) => user.name === name);
 
     this.userManagementStore.update({ isUserUnique });
   }
