@@ -3,7 +3,6 @@ import { UserManagementStore } from './user-management.store';
 import { UmUser } from '../../models';
 import { guid } from '@datorama/akita';
 import { UserManagementQuery } from './user-management.query';
-import { Observable, map, delay, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserManagementService {
