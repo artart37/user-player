@@ -12,7 +12,7 @@ export class UserManagementService {
 
   addUser(user: Omit<UmUser, 'id'>): void {
     this.userManagementStore.setLoading(true);
-    this.userManagementStore.add({ ...user, id: guid() });
+    this.userManagementStore.add({ id: guid(), ...user });
     this.userManagementStore.setLoading(false);
   }
 
