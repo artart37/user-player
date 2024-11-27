@@ -40,14 +40,12 @@ export class UmCreateUserComponent implements OnDestroy, OnInit {
   private unsubscribeSubject = new Subject<void>();
   private userManagementService = inject(UserManagementService);
   private userManagementQuery = inject(UserManagementQuery);
+  private isUserUnique$ = this.userManagementQuery.selectIsUserUnique$;
 
   createUserForm = new FormGroup<CreateUserFormModel>({
     name: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        userNameValidator(this.userManagementQuery),
-      ],
+      validators: [Validators.required, userNameValidator(this.isUserUnique$)],
     }),
     active: new FormControl(false, {
       nonNullable: true,

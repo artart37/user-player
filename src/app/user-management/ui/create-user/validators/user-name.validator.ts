@@ -4,14 +4,14 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { catchError, map, Observable, of } from 'rxjs';
-import { UserManagementQuery } from '../../../data-access';
 
 export const userNameValidator = (
-  userManagementQuery: UserManagementQuery
+  isUserUnique$: Observable<boolean>
 ): AsyncValidatorFn => {
-  return (): Observable<ValidationErrors | null> => {
-    return userManagementQuery.selectIsUserUnique$.pipe(
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return isUserUnique$.pipe(
       map((isUnique) => {
+        console.log(isUnique);
         return isUnique ? null : { unique: true };
       }),
       catchError(() => of({ unique: true }))
